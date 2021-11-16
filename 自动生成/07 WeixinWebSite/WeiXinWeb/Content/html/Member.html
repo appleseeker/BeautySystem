@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="/Content/css/lan.min.css" rel="stylesheet" />
+    <link href="/Content/css/integral.css" rel="stylesheet" />
+    <script type="text/template" id="tplgg">
+        <div class="m-top-ct">
+        </div>
+        <div class="m-top">
+            <div class="m-brief-ct" style="padding-bottom:5px">
+            </div>
+            <div class="card-ct">
+                <img class="img-radius-s" src="/Content/images/integral/card-member.png" style="height:140px;">
+                <img src="<%=member.Picture%>" style="height: 100%;width: auto;position:absolute;top:0px; " />
+                <span class="super_card"><%=member.NickName%></span>
+                <span class="super_name" style="top:48%">VIP：<%=member.VIPLevel%></span>
+                <div class="super_shop">积分<i class="iconfonts iconfont-right">&#xe635;</i><%=member.Points%></div>
+            </div>
+        </div>
+        <div>
+            <ul class="m-info-list">
+                <li style="margin-top:-1.55rem ">
+                    <div class="item-content">
+                        <div class="item-inner" style="height:2.2rem">
+                            <div class="item-title label">
+                            </div>
+                            <div class="item-input">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="balance">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">
+                                <span>积分</span>
+                            </div>
+                            <div class="item-input" style="line-height:40px">
+                                <span><%=member.Points%></span>
+                                <div class="tips"></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="appointment ">
+                    <div class="item-content">
+                        <div class="item-inner" onclick="apix.goto('<%=(paddingCount>0?'OrderList.html':'appointment.html')%>')">
+                            <div class="item-title label">
+                                <span>我的预约</span>
+                                <div class="tips">
+                                </div>
+                            </div>
+                            <div class="item-input">
+                                <span><%=paddingCount%></span>
+                                <div class="tips">待开始预约</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="order">
+                    <div class="item-content">
+                        <div class="item-inner" onclick="apix.goto('OrderList.html?type=1')">
+                            <div class="item-title label">
+                                <span>我的门店订单</span>
+                                <div class="tips">
+                                </div>
+                            </div>
+                            <div class="item-input">
+                                <span><%=ProcessedCount%></span>
+                                <div class="tips">
+                                    待评价订单
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="shop-order">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">
+                                <span>我的商城订单</span>
+                            </div>
+                            <div class="item-input" style="line-height:56px">
+                                <span></span>
+                                <div class="tips">暂未开放</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="exchange">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">
+                                <div>
+                                    <span>优惠礼</span>
+                                    <div class="tips" style="max-width:11rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">
+                                        <%=member.couponinfo%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-input">
+                                <span style="color:#dd0101"><%=member.coupon%></span>
+                                <div class="tips">待使用好礼</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="memdetail ">
+                    <div class="item-content">
+                        <div class="item-inner-mem" onclick="apix.goto('Regist.html?tf=1')">
+                            <div class="item-title label">
+                                <span>会员详情</span>
+                                <div class="tips">
+                                    <%=member.endDate%>
+                                </div>
+                            </div>
+                            <div class="item-input" style="line-height:56px">
+                                <span></span>
+                                <div class="tips">查看或修改</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="memberRuler ">
+                    <div class="item-content">
+                        <div class="item-inner-mem" onclick="apix.goto('rule')">
+                            <div class="item-title label">
+                                <span>会员规则</span>
+                                <div class="tips">
+                                    <%=member.endDate%>
+                                </div>
+                            </div>
+                            <div class="item-input" style="line-height:56px">
+                                <span></span>
+                                <div class="tips">规则介绍</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </script>
+
+    
+</head>
+<body>
+    <div class="page member" style="display:block;">
+        
+    </div>
+    
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+    <script type="text/javascript">
+        apix.getuser().then(function (d) {
+            apix.GetMember().then(function (dd) {
+                //console.log($("#tplgg").html());
+                if ($("#tplgg").html() != null) {
+                    var tmp = $.template($("#tplgg").html())(dd);
+                    $(".member").html(tmp);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

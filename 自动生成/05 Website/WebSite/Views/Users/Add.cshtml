@@ -1,0 +1,91 @@
+﻿@model Common.Users
+
+@{
+    ViewBag.Title = "添加员工";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<form id="Add_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+                <input type="hidden" name="ID" value="@Model.ID"/>
+        <tr>
+            <td>登录名:</td>
+            <td><input class="easyui-textbox" type="text" name="LoginName" data-options=" required:true,validType:['length[3,20]','remote[\'/Users/Users_LoginNameOnly_AjaxVerify?\'+jQuery(\'#Add_ffss\').serialize(),\'LoginName\']']" style="width:200px;" value="@Model.LoginName"></input></td>
+        </tr>
+        <tr>
+            <td>登陆密码:</td>
+            <td><input class="easyui-passwordbox" type="text" name="Pwd" data-options=" required:true,validType:['length[3,20]']" style="width:200px;" value="@Model.Pwd"></input></td>
+        </tr>
+        <tr>
+            <td>状态:</td>
+            <td><input class="easyui-combobox" type="text" name="Status" data-options=" required:true,validType:['length[2,2]'],valueField:'Value',textField:'Key',url:'/Users/EnableDisable_Source'" style="width:200px;" value="@Model.Status"></input></td>
+        </tr>
+        <tr>
+            <td>公司:</td>
+            <td><input class="easyui-combobox" type="text" name="CompanyID" data-options=" required:true,valueField:'Value',textField:'Key',url:'/Users/CompanyList_Source'" style="width:200px;" value="@Model.CompanyID"></input></td>
+        </tr>
+        <tr>
+            <td>门店:</td>
+            <td><input class="easyui-combobox" type="text" name="StoreID" data-options=" required:true,valueField:'Value',textField:'Key',url:'/Users/StoresList_Source'" style="width:200px;" value="@Model.StoreID"></input></td>
+        </tr>
+        <tr>
+            <td>员工:</td>
+            <td><input class="easyui-textbox" type="text" name="EmpplyeeName" data-options=" required:true,validType:['lengthExt[0,100,\'员工名长度必须在0-100之间\']']" style="width:200px;" value="@Model.EmpplyeeName"></input></td>
+        </tr>
+        <tr>
+            <td>性别:</td>
+            <td><input class="easyui-combobox" type="text" name="Sex" data-options="valueField:'Value',textField:'Key',url:'/Users/SexList_Source'" style="width:200px;" value="@Model.Sex"></input></td>
+        </tr>
+        <tr>
+            <td>照片:</td>
+            <td><input class="easyui-textbox" type="text" name="Picture" data-options="" style="width:200px;" value="@Model.Picture"></input></td>
+        </tr>
+        <tr>
+            <td>OnBoardDate:</td>
+            <td><input class="easyui-datetimebox" type="text" name="OnBoardDate" data-options="" style="width:200px;" value="@Model.OnBoardDate"></input></td>
+        </tr>
+        <tr>
+            <td>位置:</td>
+            <td><input class="easyui-textbox" type="text" name="Position" data-options="" style="width:200px;" value="@Model.Position"></input></td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" onclick="Add_Save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a href="javascript:void(0)" onclick="Add_Close()" class="easyui-linkbutton">关闭</a>
+    </div>
+<div style="display:none">
+    <!--操作界面-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+    
+        function Add_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+        function Add_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#Add_ffss').form('submit', {
+                url: "/Users/Add_",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');	// hide progress bar while the form is invalid
+                    }
+                    return isValid;	// return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        if (@Html.Raw("\"" + Request["listid"] + "\"") != "") Gridreload("@Request["listid"]", getQueryStringByName("uit"));
+                        Add_Close();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+
+    </script>
+}

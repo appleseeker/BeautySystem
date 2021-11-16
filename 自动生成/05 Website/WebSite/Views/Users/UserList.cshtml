@@ -1,0 +1,225 @@
+﻿@{
+    ViewBag.Title = "系统账户";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<div id="p" class="easyui-panel"
+     style="width:100%;height:80px;padding:10px;background:#fafafa"
+     data-options="collapsible:true">
+
+    <form id="UserList_ff" method="post" style="float:left">
+        <table cellpadding="5">
+            <tr>
+                        <td>登录名:</td>
+                        <td><input class="easyui-textbox" type="text" id="LoginName" data-options="" value="@Request["LoginName"]" /></td>
+                        <td>状态:</td>
+                        <td><input class="easyui-combobox" type="text" id="Status" data-options="valueField:'Value',textField:'Key',url:'/Users/EnableDisable_Source'" value="" /></td>
+            </tr>
+        </table>
+
+    </form>
+    <div style="float:right;">
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:UserList_search(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">【查询】</a>
+        </div>
+    </div>
+</div>
+
+
+<table id="dlUserList" class="easyui-datagrid" data-options="url:'',sortName:'LoginName',sortOrder:'desc',rownumbers:true,toolbar:'#toolbar',pagination:true,fitColumns:false,singleSelect:true ,pageSize:20,pageList:[20,50,100]">
+    <thead>
+        <tr>
+                <th data-options="field:'ID',sortable:true,hidden:true">ID</th>
+                <th data-options="field:'LoginName',sortable:true,hidden:false">登录名</th>
+                <th data-options="field:'Status',sortable:true,hidden:false">状态</th>
+            <th data-options="field:'xx_xxx',formatter:UserList_rowButton">操作</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div id="toolbar">
+        <a href="javascript:openPage('新建账户','/Users/UserAdd?','dlUserList')" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新建账户</a>
+
+</div>
+
+<div style="display:none">
+    <!--操作界面-->
+        <div id="UserList_Delete_actionView">
+            <form id="UserList_Delete_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                            <input type="hidden" name="ID" value="" />
+                                            <tr><td>删除账户后不可恢复，请确认是是否继续？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserList_Delete_Save()" class="easyui-linkbutton">确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserList_Delete_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+        <div id="UserList_Disable_actionView">
+            <form id="UserList_Disable_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                            <input type="hidden" name="ID" value="" />
+                                            <tr><td>确认要启用此用户？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserList_Disable_Save()" class="easyui-linkbutton">确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserList_Disable_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+        <div id="UserList_Enable_actionView">
+            <form id="UserList_Enable_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                            <input type="hidden" name="ID" value="" />
+                                            <tr><td>确认要禁用此用户？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserList_Enable_Save()" class="easyui-linkbutton">确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserList_Enable_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+        function UserList_getSearchData() {
+            return {
+                    LoginName: $("#LoginName").textbox('getValue'),
+                    Status: $("#Status").combobox('getValue'),
+                other:"xx"
+            };
+        }
+
+        function UserList_search() {
+            $('#dlUserList').datagrid('load', UserList_getSearchData());
+        }
+
+        function UserList_rowButton(value, row, index) {
+            var html = "";
+                var url = "/UsersRolesMap/UsersRolesMapList?userID="+row.ID+"";
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("账户角色/账户角色列表/访问"))
+                {
+                <text>html += UserList_rowLinked("角色管理", url);</text>
+                }
+                var url = "/Users/UserEdit?ID="+row.ID+"";
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/编辑用户/访问"))
+                {
+                <text>html += UserList_rowLinked("编辑", url);</text>
+                }
+
+            //加载操作函数
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/系统账户/删除"))
+                {
+                <text>if(true) html += "<a href=\"javascript:void(0)\" onclick=\"UserList_rowAction('#UserList_Delete_actionView','删除',"+index+",150)\" class=\"easyui-linkbutton l-btn l-btn-small l-btn-text\" style=\"padding: 0 5px;\">删除</a>";</text>
+                }
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/系统账户/禁用"))
+                {
+                <text>if(row.Status=="启用") html += "<a href=\"javascript:void(0)\" onclick=\"UserList_rowAction('#UserList_Disable_actionView','禁用',"+index+",150)\" class=\"easyui-linkbutton l-btn l-btn-small l-btn-text\" style=\"padding: 0 5px;\">禁用</a>";</text>
+                }
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/系统账户/启用"))
+                {
+                <text>if(row.Status=="禁用") html += "<a href=\"javascript:void(0)\" onclick=\"UserList_rowAction('#UserList_Enable_actionView','启用',"+index+",150)\" class=\"easyui-linkbutton l-btn l-btn-small l-btn-text\" style=\"padding: 0 5px;\">启用</a>";</text>
+                }
+            return html;
+        }
+
+        function UserList_rowLinked(name, url) {
+            return "<a href=\"javascript:openPage('" + name + "','" + url + "','dlUserList')\"  class='easyui-linkbutton l-btn l-btn-small l-btn-text' style='padding: 0 5px;'>" + name + "</a>";
+        }
+        function UserList_rowAction(id, name, index, height, funcName, isSave) {
+            var row = jQuery('#dlUserList').datagrid("getData").rows[index];
+            jQuery(id + "_form").form("load", row);
+            if (isSave) {
+                eval(funcName + "()");
+            } else {
+                jQuery(id).dialog({ title: name, width: 400, height: height, modal: true, cache: false}).dialog('center');
+            }
+        }
+        jQuery(function () {
+            setTimeout(function () {
+                $('#dlUserList').datagrid({
+                    url: '/Users/UserList_', queryParams: UserList_getSearchData()
+                });
+            }, 100);
+        });
+
+        
+        function UserList_Delete_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserList_Delete_actionView_form').form('submit', {
+                url: "/Users/UserList_Delete",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserList_Delete_actionView').dialog('close');
+                        UserList_search();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+        
+        function UserList_Disable_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserList_Disable_actionView_form').form('submit', {
+                url: "/Users/UserList_Disable",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserList_Disable_actionView').dialog('close');
+                        UserList_search();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+        
+        function UserList_Enable_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserList_Enable_actionView_form').form('submit', {
+                url: "/Users/UserList_Enable",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserList_Enable_actionView').dialog('close');
+                        UserList_search();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+
+</script>
+}

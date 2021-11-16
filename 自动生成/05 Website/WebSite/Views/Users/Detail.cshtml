@@ -1,0 +1,39 @@
+﻿@model Common.Users
+
+@{
+    ViewBag.Title = "用户详情";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<form id="Detail_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+                <input type="hidden" name="ID" value="@Model.ID"/>
+        <tr>
+            <td>登录名:</td>
+            <td>@Model.LoginName</td>
+        </tr>
+        <tr>
+            <td>登陆密码:</td>
+            <td>@Model.Pwd</td>
+        </tr>
+        <tr>
+            <td>状态:</td>
+            <td>@Model.Status</td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:Detail_Close()" class="easyui-linkbutton">关闭</a>
+    </div>
+
+<div style="display:none">
+    <!--操作界面-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function Detail_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+
+    </script>
+}

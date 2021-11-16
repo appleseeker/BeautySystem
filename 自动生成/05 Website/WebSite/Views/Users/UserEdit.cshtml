@@ -1,0 +1,184 @@
+﻿@model Common.Users
+
+@{
+    ViewBag.Title = "编辑用户";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+<form id="UserEdit_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+                <input type="hidden" name="ID" value="@Model.ID"/>
+        <tr>
+            <td>登录名:</td>
+            <td><input class="easyui-textbox" type="text" name="LoginName" data-options=" required:true,validType:['length[3,20]','remote[\'/Users/Users_LoginNameOnly_AjaxVerify?\'+jQuery(\'#UserEdit_ffss\').serialize(),\'LoginName\']']" style="width:200px;" value="@Model.LoginName"></input></td>
+        </tr>
+        <tr>
+            <td>登陆密码:</td>
+            <td><input class="easyui-passwordbox" type="text" name="Pwd" data-options=" required:true,validType:['length[3,20]']" style="width:200px;" value="@Model.Pwd"></input></td>
+        </tr>
+        <tr>
+            <td>状态:</td>
+            <td><input class="easyui-combobox" type="text" name="Status" data-options=" required:true,validType:['length[2,2]'],valueField:'Value',textField:'Key',url:'/Users/EnableDisable_Source'" style="width:200px;" value="@Model.Status"></input></td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:UserEdit_Save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a href="javascript:UserEdit_Close()" class="easyui-linkbutton">关闭</a>
+        @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/编辑用户/删除"))
+        {
+        <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Delete_actionView').dialog({ title: '删除', width: 400, height: 150, modal: true, cache: false}).dialog('center')" class="easyui-linkbutton">删除</a>
+        }
+        @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/编辑用户/禁用") && Model.@Status=="启用")
+        {
+        <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Disable_actionView').dialog({ title: '禁用', width: 400, height: 150, modal: true, cache: false}).dialog('center')" class="easyui-linkbutton">禁用</a>
+        }
+        @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("系统账户/编辑用户/启用") && Model.@Status=="禁用")
+        {
+        <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Enable_actionView').dialog({ title: '启用', width: 400, height: 150, modal: true, cache: false}).dialog('center')" class="easyui-linkbutton">启用</a>
+        }
+    </div>
+<div style="display:none">
+    <!--操作界面-->
+        <div id="UserEdit_Delete_actionView">
+            <form id="UserEdit_Delete_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                    <input type="hidden" name="ID" value="@Model.ID"/>
+                                        <tr><td>删除账户后不可恢复，请确认是是否继续？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserEdit_Delete_Save()" class="easyui-linkbutton" >确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Delete_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+        <div id="UserEdit_Disable_actionView">
+            <form id="UserEdit_Disable_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                    <input type="hidden" name="ID" value="@Model.ID"/>
+                                        <tr><td>确认要启用此用户？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserEdit_Disable_Save()" class="easyui-linkbutton" >确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Disable_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+        <div id="UserEdit_Enable_actionView">
+            <form id="UserEdit_Enable_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                    <input type="hidden" name="ID" value="@Model.ID"/>
+                                        <tr><td>确认要禁用此用户？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="UserEdit_Enable_Save()" class="easyui-linkbutton" >确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#UserEdit_Enable_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function UserEdit_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+        function UserEdit_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserEdit_ffss').form('submit', {
+                url: "/Users/UserEdit_",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');	// hide progress bar while the form is invalid
+                    }
+                    return isValid;	// return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        if (@Html.Raw("\"" + Request["listid"] + "\"") != "") Gridreload("@Request["listid"]", getQueryStringByName("uit"));
+                        UserEdit_Close();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+
+        
+        function UserEdit_Delete_Save() { 
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserEdit_Delete_actionView_form').form('submit', {
+                url: "/Users/UserEdit_Delete",
+                onSubmit: function() {
+                    var isValid = $(this).form('validate');
+                    if (!isValid)
+                    {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function(data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserEdit_Delete_actionView').dialog('close');
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+        
+        function UserEdit_Disable_Save() { 
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserEdit_Disable_actionView_form').form('submit', {
+                url: "/Users/UserEdit_Disable",
+                onSubmit: function() {
+                    var isValid = $(this).form('validate');
+                    if (!isValid)
+                    {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function(data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserEdit_Disable_actionView').dialog('close');
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+        
+        function UserEdit_Enable_Save() { 
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#UserEdit_Enable_actionView_form').form('submit', {
+                url: "/Users/UserEdit_Enable",
+                onSubmit: function() {
+                    var isValid = $(this).form('validate');
+                    if (!isValid)
+                    {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function(data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#UserEdit_Enable_actionView').dialog('close');
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+    </script>
+}

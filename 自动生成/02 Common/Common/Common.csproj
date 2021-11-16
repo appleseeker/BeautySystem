@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4B574869-D188-41AF-A6E6-7C6F294D1C5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthorityException.cs" />
+    <Compile Include="AutoGenerate\AuthListHelper.cs" />
+    <Compile Include="AutoGenerate\CompanyProducts.cs" />
+    <Compile Include="AutoGenerate\Employees.cs" />
+    <Compile Include="AutoGenerate\Employees_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Employees_SearchQuery.cs" />
+    <Compile Include="BizResult.cs" />
+    <Compile Include="Easyui\Combo.cs" />
+    <Compile Include="Easyui\DataList.cs" />
+    <Compile Include="Easyui\EasyuiParam.cs" />
+    <Compile Include="Easyui\EasyuiResult.cs" />
+    <Compile Include="Easyui\TreeList.cs" />
+    <Compile Include="EmailHelper.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="HtmlHelper.cs" />
+    <Compile Include="HttpUtil.cs" />
+    <Compile Include="Images.cs" />
+    <Compile Include="IPHelper.cs" />
+    <Compile Include="SelectPagerModel.cs" />
+    <Compile Include="JsonHelper.cs" />
+    <Compile Include="LinqExtensions.cs" />
+    <Compile Include="MD5Helper.cs" />
+    <Compile Include="NPOIHelper.cs" />
+    <Compile Include="PagedList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SHA1Helper.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="StringUtils.cs" />
+    <Compile Include="ValueCheck.cs" />
+    <Compile Include="ViewException.cs" />
+    <Compile Include="AutoGenerate\Users.cs" />
+    <Compile Include="AutoGenerate\Users_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Users_DisableAction.cs" />
+    <Compile Include="AutoGenerate\Users_EnableAction.cs" />
+    <Compile Include="AutoGenerate\Users_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\Roles.cs" />
+    <Compile Include="AutoGenerate\Roles_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Roles_RoleListQuery.cs" />
+    <Compile Include="AutoGenerate\RoleAuthMap.cs" />
+    <Compile Include="AutoGenerate\RoleAuthMap_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\RoleAuthMap_RoleAuthMapListQuery.cs" />
+    <Compile Include="AutoGenerate\UsersRolesMap.cs" />
+    <Compile Include="AutoGenerate\UsersRolesMap_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\UsersRolesMap_UsersRolesMapListQuery.cs" />
+    <Compile Include="AutoGenerate\Members.cs" />
+    <Compile Include="AutoGenerate\Members_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Members_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\Companys.cs" />
+    <Compile Include="AutoGenerate\Companys_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Companys_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\Stores.cs" />
+    <Compile Include="AutoGenerate\Stores_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Stores_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\Projects.cs" />
+    <Compile Include="AutoGenerate\Projects_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\Projects_UpAction.cs" />
+    <Compile Include="AutoGenerate\Projects_DownAction.cs" />
+    <Compile Include="AutoGenerate\Projects_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\MemberOrders.cs" />
+    <Compile Include="AutoGenerate\MemberOrders_DeleteAction.cs" />
+    <Compile Include="AutoGenerate\MemberOrders_wanchengAction.cs" />
+    <Compile Include="AutoGenerate\MemberOrders_quxiaoAction.cs" />
+    <Compile Include="AutoGenerate\MemberOrders_SearchQuery.cs" />
+    <Compile Include="AutoGenerate\AuthList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomInterface\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

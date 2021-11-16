@@ -1,0 +1,16 @@
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\Common.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\Common.pdb
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\Newtonsoft.Json.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\NPOI.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\NPOI.OOXML.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\ICSharpCode.SharpZipLib.xml
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\Newtonsoft.Json.pdb
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\bin\Debug\Newtonsoft.Json.xml
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\obj\Debug\Common.dll
+C:\Git Project\BeautySystem\BeautySystem\自动生成\02 Common\Common\obj\Debug\Common.pdb

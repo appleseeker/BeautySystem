@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="../sui/css/sm.css" rel="stylesheet" />
+    <link href="../sui/css/sm-extend.css" rel="stylesheet" />
+    <link href="../sui/css/common.css" rel="stylesheet" />
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../sui/js/sm-extend.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+    <script type="text/template" id="bodyList">
+        <div class="list-block">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.OrderTime%> 到店</div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.StoreName%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.ProjectName%> - <%=data.NeedTime%> 分钟</div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.PeopleCount%> 人 | ￥<%=data.Price%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.UserName%>  <%=data.Phone%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%=data.Status%> | <%=data.CreateTime%>提交</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </script>
+</head>
+<body>
+    <div class="page page-current" id="page-bar">
+        <header class="bar bar-nav mytitle">
+            <a class="button button-link button-nav pull-left back" href="Member.html">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">订单详情</h1>
+        </header>
+        <div class="content" style="top:0.5rem;bottom:2.5rem;">
+            
+        </div>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a href="javascript:Cancel()" class="tab-item external">取消预约</a>
+        </nav>
+    </div>
+    <script type="text/javascript">
+        apix.getuser().then(function (g) {
+            var sname = $.getQueryString("id");
+            apix.GetOrderOne(sname).then(function (data) {
+                var html = $.template($("#bodyList").html())({ data: data });
+                $(".content").html(html);
+                if (data.Status != "未开始") {
+                    $(".bar-tab").hide();
+                }
+            });
+        });
+        function Select() {
+
+        }
+
+        function Cancel() {
+            apix.CancalOrder($.getQueryString("id")).then(function (d) {
+                if (d > 0) {
+                    alert("取消成功");
+                    apix.goto('Orderlist.html');
+                }
+            });
+        }
+        
+    </script>
+    <style>
+        .liSelect {
+            background-color: #def2ff;
+        }
+        .list-block .item-title{
+            font-size: 0.7rem;
+        }
+    </style>
+</body>
+</html>

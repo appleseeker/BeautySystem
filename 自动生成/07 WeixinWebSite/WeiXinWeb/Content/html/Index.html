@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="/Content/sui/css/sm.min.css" rel="stylesheet" />
+    <link href="../css/lan.min.css" rel="stylesheet" />
+    <link href="/Content/css/integral.css" rel="stylesheet" />
+    <script src="/Content/js/zepto/zepto.min.js"></script>
+    <script src="../sui/js/sm.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+</head>
+<body>
+    <div class="page-group">
+        
+
+        <!-- 其他的单个page内联页（如果有） -->
+        <div class="page" id="Member">
+            <div class="page member">
+                <script type="text/template" id="tplgg">
+                    <div class="m-top-ct">
+                        <img src="/Content/images/m_bg.png">
+                    </div>
+                    <div class="m-top">
+                        <div class="m-brief-ct" style="padding-bottom:5px">
+                        </div>
+                        <div class="card-ct">
+                            <%if(supermember === 1){%>
+                            <img class="img-radius-s" src="/Content/images/integral/card-member.png">
+                            <%}%>
+                            <%if(supermember === 2){%>
+                            <img class="img-radius-s" src="/Content/images/integral/card-member.png">
+                            <%}%>
+                            <%if(!supermember){%>
+                            <img class="img-radius-s" src="/Content/images/integral/card-member.png">
+                            <span class="super_card">Staff Card</span>
+                            <span class="super_name">员工卡[<%=member.NickName%>]</span>
+                            <div class="super_shop">积分商城<i class="iconfonts iconfont-right">&#xe635;</i></div>
+                            <%}%>
+                            <%if(supermember){%>
+                            <span class="super_top">您的积分</span>
+                            <span class="super_center"><%=member.point%></span>
+                            <div class="super_shop">积分商城<i class="iconfonts iconfont-right">&#xe635;</i></div>
+                            <%}%>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="m-info-list">
+                            <li style="margin-top:-1.55rem ">
+                                <div class="item-content">
+                                    <div class="item-inner" style="height:2.2rem">
+                                        <div class="item-title label">
+                                        </div>
+                                        <div class="item-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="balance">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            <span>余额</span>
+                                        </div>
+                                        <div class="item-input" style="line-height:40px">
+                                            <span>¥ <%=member.balance%></span>
+                                            <div class="tips"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="appointment ">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            <span>我的预约</span>
+                                            <div class="tips">
+                                                <%=member.bookinfo%>
+                                            </div>
+                                        </div>
+                                        <div class="item-input">
+                                            <span><%=member.book%></span>
+                                            <div class="tips">待开始预约</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="order">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            <span>我的门店订单</span>
+                                            <div class="tips">
+                                                <%=member.orderinfo%>
+                                            </div>
+                                        </div>
+                                        <div class="item-input">
+                                            <span><%=member.unfinishorder%></span>
+                                            <div class="tips">
+                                                待评价订单
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="shop-order">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            <span>我的商城订单</span>
+                                        </div>
+                                        <div class="item-input" style="line-height:56px">
+                                            <span><i class="iconfont" style="color:#ccc">&#xe63b;</i></span>
+                                            <div class="tips"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="exchange">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            <div>
+                                                <span>优惠礼</span>
+                                                <div class="tips" style="max-width:11rem;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">
+                                                    <%=member.couponinfo%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-input">
+                                            <span style="color:#dd0101"><%=member.coupon%></span>
+                                            <div class="tips">待使用好礼</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="memdetail ">
+                                <div class="item-content">
+                                    <div class="item-inner-mem">
+                                        <div class="item-title label">
+                                            <span>会员详情</span>
+                                            <div class="tips">
+                                                <%=member.endDate%>
+                                            </div>
+                                        </div>
+                                        <div class="item-input" style="line-height:56px">
+                                            <span><i class="iconfont" style="color:#ccc">&#xe63b;</i></span>
+                                            <div class="tips"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="memberRuler ">
+                                <div class="item-content">
+                                    <div class="item-inner-mem">
+                                        <div class="item-title label">
+                                            <a href="#member_ruler">会员规则</a>
+                                            <div class="tips">
+                                                <%=member.endDate%>
+                                            </div>
+                                        </div>
+                                        <div class="item-input" style="line-height:56px">
+                                            <span><i class="iconfont" style="color:#ccc">&#xe63b;</i></span>
+                                            <div class="tips"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </script>
+            </div>
+            <nav class="bar bar-tab bottom">
+                <a class="tab-item  external" href="index.html">
+                    <span class="icon iconfont ">&#xe602;</span>
+                    <span class="tab-label">MASSAGE</span>
+                </a>
+                <a class="tab-item external" href="store.html">
+                    <span class="icon iconfont calender ">&#xe603;</span>
+                    <span class="tab-label">SPA</span>
+                </a>
+                <a class="tab-item  active" href="#">
+                    <span class="icon iconfont focus">&#xe607;</span>
+                    <span class="tab-label">My LANN</span>
+                </a>
+            </nav>
+        </div>
+
+        <!--用户详情-->
+         <div class="page" id="UserInfoxx">
+             xxx
+         </div>
+
+
+         <div class="page " id="member_ruler">
+                 <ul class="content">
+                     <li>
+                         <div class="title align-center flex-mian-start">
+                             <span class="point"></span>
+                             <span>会员定义</span>
+                         </div>
+                         <div class="text">
+                             <p>储值会员：至LANN品牌旗下任意门店储值即可成为储值会员；</p>
+                             <p>非储值会员：至LANN品牌旗下任意门店直接消费并在微信公众号绑定手机号码即可成为非储值会员；</p>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="title align-center flex-mian-start">
+                             <span class="point"></span>
+                             <span>会员积分规则</span>
+                         </div>
+                         <div class="text">
+                             <p>1.储值会员使用储值余额消费，每消费1元积1分；非储值会员到店每消费1元积1分；</p>
+                             <p>2. 储值赠送卡、代金券、现金券及优惠券不累积积分；</p>
+                             <p>3. 账号内积分如6个月内无变动，则在满6个月后的次日清零；</p>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="title align-center flex-mian-start">
+                             <span class="point"></span>
+                             <span>会员权益</span>
+                         </div>
+                         <div class="text">
+                             <table>
+                                 <thead>
+                                     <tr>
+                                         <td>会员权益</td>
+                                         <td>储值会员</td>
+                                         <td>非储值会员</td>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                         <td>积分兑礼</td>
+                                         <td><i class="iconfonts"></i></td>
+                                         <td><i class="iconfonts"></i></td>
+                                     </tr>
+                                     <tr>
+                                         <td>生日权益</td>
+                                         <td><i class="iconfonts"></i></td>
+                                         <td><i class="iconfonts"></i></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="title align-center flex-mian-start">
+                             <span class="point"></span>
+                             <span>备注</span>
+                         </div>
+                         <div class="text">
+                             <p>1. 积分兑礼：满足对应坎级即可在积分商城兑换对应等级礼品；</p>
+                             <p>2. 生日权益：需提交正确生日信息，每年仅可享受一次会员权益；</p>
+                         </div>
+                     </li>
+                 </ul>
+         </div>
+    </div>
+
+    <!-- popup, panel 等放在这里 -->
+    <div class="panel-overlay"></div>
+    <!-- Left Panel with Reveal effect -->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+            <p>这是一个侧栏</p>
+            <p></p>
+            <!-- Click on link with "close-panel" class will close panel -->
+            <p><a href="#" class="close-panel">关闭</a></p>
+        </div>
+    </div>
+
+
+    <script>
+        //判断是否经过了认证，如果没有，则进入认证逻辑
+        var openid = $.cookie.getCookie("openid");
+        var code = $.getQueryString("code");
+        var UserInfo = null;
+        code = "12112121";
+        getOpenid(openid, code);
+        if (code) {
+            Lan.getOpenID(code).then(function (result) {
+                openid = result;
+                $.cookie.setCookie("openid", openid);
+                getMemInfo(openid).then(function (data) {
+                    UserInfo = data;
+                    if (data == null || data.ID == null) {
+                        //需要绑定
+                        $.router.load("#Reist");
+                    } else {
+                        //不需要绑定
+                        $.router.load("#Member");
+                    }
+                });
+            });
+        }
+
+        $(document).on("pageInit", "#Member", function (e, pageId, $page) {
+            if (pageId == "Member") {
+                console.log(UserInfo);
+                if ($("#tplgg").html() != null) {
+                    $(".member").html($.template($("#tplgg").html())({ auth: {}, member: UserInfo, supermember: null }));
+                }
+            }
+        });
+
+
+        $.init()
+
+    </script>
+    <style>
+        .page-group.page-current, .page.page-current {
+            overflow: auto;
+        }
+    </style>
+</body>
+</html>

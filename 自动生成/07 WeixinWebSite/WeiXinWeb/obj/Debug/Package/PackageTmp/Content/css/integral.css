@@ -1,0 +1,955 @@
+@import './iconfonts/iconfont.css';
+
+body{
+/*	font-family:"webfont";*/
+}
+
+@font-face {font-family: 'webfont';
+  src: url('//at.alicdn.com/t/zcppot4pwxywrk9.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/zcppot4pwxywrk9.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/zcppot4pwxywrk9.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/zcppot4pwxywrk9.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/zcppot4pwxywrk9.svg#思源黑体-普通') format('svg'); /* iOS 4.1- */
+}
+
+
+.iconfonts {
+	font-size: 2rem;
+	color: #fff;
+}
+
+/*会员卡页面广告或者活动样式*/
+	.yearca{
+		position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    z-index: 99999;
+	}
+	.yearca img{
+		width:100%;
+		height:100%;
+	}
+
+	
+
+	.catime{
+		position: fixed;
+	    width: 30px;
+	    height: 30px;
+	    border-radius: 50%;
+	    z-index: 99999;
+	    top: 15px;
+	    background-image:url(images/active/actbg.jpg);
+	    color:#eda900;
+	    text-align: center;
+	    line-height: 30px;
+	    right: 15px;
+	}
+	.act-tu{
+		position: fixed;
+	    top: 7%;
+	    width: 60%;
+	    left: 20%;
+	}
+	.act1{
+		position: fixed;
+	    top: 48%;
+	    width: 20%;
+	    left: 40%;
+	}
+	.act2{
+		position: fixed;
+	    top: 51%;
+	    width: 50%;
+	    left: 25%;
+	}
+	.act2-1{
+		display: inline-block;
+		width: 35%;
+	}
+	.act2-2{
+		display: inline-block;
+		width: 35%;    		
+	}
+	.act2-time1{
+		display: inline-block;
+	    color: #ECA900;
+	    font-size: 30px;
+	    font-weight: bold;
+	}
+	.act2-time2{
+		display: inline-block;
+	    color: #ECA900;
+	    font-size: 30px;
+	    font-weight: bold;
+	}
+	.act3{
+		position: fixed;
+	    top: 58%;
+	    width: 70%;
+	    left: 15%;
+	}
+	.act4{
+		position: fixed;
+	    top: 62%;
+	    width: 70%;
+	    left: 18%;
+	}
+	.act4-1{
+		display:inline-block;
+		width: 24%;
+	}
+	.act4-2{
+		display:inline-block;
+		width: 16%;
+	}
+	.act4-text{
+		display: inline-block;
+	    color: #ECA900;
+	    font-size: 30px;
+	    font-weight: bold;
+	}
+	.act5{
+		position: fixed;
+	    top: 71%;
+	    width: 70%;
+	    left: 15%;
+	}
+	.act6{
+		position: fixed;
+	    top: 92%;
+	    width: 70%;
+	    left: 15%;
+	    opacity:0;
+	}
+	/*动画*/
+	.ani_act{animation:ani_act 3s linear forwards;-webkit-animation:ani_act 3s linear forwards}
+	@keyframes ani_act{
+		0%{opacity:0}
+		25%{opacity:0.4}
+		50%{opacity:0.7}
+		75%{opacity:0.8}
+		100%{opacity:1}
+	}
+	@-webkit-keyframes ani_act{
+		0%{opacity:0}
+		25%{opacity:0.4}
+		50%{opacity:0.7}
+		75%{opacity:0.8}
+		100%{opacity:1}
+	}
+/*会员卡积分页面改版样式*/
+/*member.html*/
+	/*修改边框大小*/
+	@media only screen and (-webkit-min-device-pixel-ratio:2) {
+    .item-inner:after,.item-inner-mem:after{
+	        -webkit-transform: scaleY(1);
+	        -ms-transform: scaleY(1);
+	        -o-transform: scaleY(1);
+	        transform: scaleY(1);
+   	 	}   	 	
+	}
+	/*---*/
+	.item-inner-mem .tips{
+		font-size: .6rem;
+    	color: #999999;
+	}
+	.m-top-ct img{
+		height:6rem;
+	}
+	.logoTu{
+/*		width: 3.5rem;*/
+			width:50%;
+    	margin: auto;
+	}
+
+	.logoTu img{
+		width:100%;
+	}
+	.page.member .growth-t, .page.growth .growth-t{
+		font-size:0.6rem;
+		margin-bottom:.2rem;
+	}
+	
+
+/*会员详情*/
+.memedit{
+		text-align: right;
+    display: inline-block;
+    position: absolute;
+    right: .3rem;
+    color: #534588;
+    font-size: .75rem;
+}
+.memedit1{
+		text-align: right;
+    display: inline-block;
+    position: absolute;
+    right: .3rem;
+    color: #534588;
+    font-size: .7rem;
+}
+.editbtn{
+		background: #341254;
+    color: #fff;
+    text-align: center;
+    display: block;
+    font-size: .8rem;
+    line-height: 2.2rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 98888;
+}
+.editbtn1{
+		background: #534588;
+    color: #fff;
+    text-align: center;
+    display: block;
+    font-size: .8rem;
+    line-height: 2.2rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 98888;
+}
+.page.member{
+		background:#f8f8f8;	
+}
+	.card-ct{
+			letter-spacing:1px;
+	}
+	.page.member .m-info-list{
+			padding-bottom:2.55rem;
+	}
+	.page.member .m-info-list .item-inner{
+			height:3.6rem;
+	}
+	.memtitle{
+	    line-height: 2.25rem;
+	    padding-left: 0.75rem;
+	    font-size: 0.9rem;
+	    color: #000;
+	    font-weight: 600;
+	    border-bottom:1px solid #f3f3f3;
+	}
+	.page.personal{
+		 background:#f8f8f8;
+	}
+	.page.personal .label{
+    	font-size: 0.8rem;
+	}
+	.page.member .growth-t{
+			color:#eae4d5;
+	}
+	.page.member .gift{
+			font-size: .6rem;
+	    color: #eda900;
+	    display: block;
+	    line-height: 0.8rem;
+	}
+	.page.member .gift-link{
+		  color:#c3a273;
+		  font-family:"webfont";
+	}
+	.page.member .growth-v-l{
+		 font-size:1.7rem;
+		 line-height:1.7rem;
+		 margin-bottom:0.2rem;
+	}
+	.page.member .gift-link{
+			margin-top:0.6rem;
+	}
+	.mem-ul{
+			background:#ffffff;
+	}
+	.mem-ul li{
+			border-bottom:1px solid #f3f3f3;
+	}
+	.mem-content{
+			width: 100%;
+	    height: 2.4rem;
+	    line-height: 2.4rem;
+	    padding-left: 0.75rem;
+	    font-size:0.7rem;
+	}
+	.mem-left{
+		display:inline-block;
+		width: 25%;
+		color:#000000;
+		font-weight:bold;
+	}
+	.mem-center{
+		display:inline-block;
+		width:65%;
+		color: #000000;
+	}
+	.mem-right{
+		display:inline-block;
+	}
+	.mem-content .iconfont{
+		color:#cccccc;
+		font-size: 0.65rem;
+	}
+	.memcategory{
+		background: #ffffff;
+    padding: 0.8rem 0.3rem 0.2rem 0.7rem;
+    font-size: 0.7rem;
+	}
+	.memcategory li{
+		width: 100%;
+    line-height: 1.25rem;
+    margin-bottom: .6rem;		
+	}
+	.memsubtitle{
+	    font-weight: bold;
+	    width: 25%;
+	    color: #000000;
+	    display: inline-flex;
+   		width: 25%;
+	}
+	.meminteg{
+			display: inline-flex;	    
+	    width: 73%;
+			letter-spacing:1px;
+			color: #000000;
+	}
+	@media only screen and (min-width: 375px) and (max-width: 414px) {
+			.logoTu{
+/*					width: 3.5rem;*/
+					width:48%;
+			    margin: auto;
+			}
+			.page.member .gift-link{
+				margin-top:0.6rem;
+			}
+	}
+	.card-inner-ct>div:first-child{
+			-moz-box-flex: .58;
+	    -webkit-box-flex: .58;
+	    box-flex: .58;
+	    -webkit-flex: .58;
+	    flex: .58;
+	    text-align: center;
+	    position: relative;
+	}
+	.card-inner-ct>div:last-child{
+			-moz-box-flex: .58;
+	    -webkit-box-flex: .58;
+	    box-flex: .58;
+	    -webkit-flex: .58;
+	    flex: .58;
+	    text-align: center;
+	    padding-right:10px;
+	}
+	.item-inner-mem:after{
+			position: absolute;
+	    top: auto;
+	    right: auto;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 15;
+	    display: block;
+	    width: 100%;
+	    height: 1px;
+	    content: '';
+	    background-color: #f2f2f2;
+	    -webkit-transform-origin: 50% 100%;
+	    -ms-transform-origin: 50% 100%;
+	    -o-transform-origin: 50% 100%;
+	    transform-origin: 50% 100%;
+	}
+	.page.member .m-brief-ct{
+			padding:0.3rem 0.75rem;
+	}
+	.page.member .m-info-list .item-inner:after{
+		  background-color:#f2f2f2;
+	}
+/*会员详情*/
+
+/*积分商城*/
+		.page.igshop{
+				background:#f3f3f3;
+		}
+		.page.igshop .inteshop{
+				background:#f3f3f3;
+		}
+		.page.igshop .m-top-ct{
+				height:3.5rem;
+				overflow:hidden;
+				background: #FFF;
+				display: flex;
+				align-items: center;
+		}
+		.page.igshop .m-top{
+			  margin-top: -3.0rem;
+		}
+		.page.igshop .m-top-ct img{
+				width:100%;
+		}
+		
+		.page.igshop .m-info-list{
+				padding-bottom: 1.5rem;
+    	
+		}
+		.page.igshop .m-brief-ct{
+				display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: -webkit-flex;
+		    display: flex;
+		    width: 100%;
+		    -ms-flex-pack: justify;
+		    -webkit-justify-content: space-between;
+		    justify-content: space-between;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    -webkit-align-items: center;
+		    align-items: center;
+		    color: #323232;
+		    padding: 0 1rem;
+		    font-size: .7rem;
+		    padding-bottom: 0;
+		}
+		
+		.giftlist{
+			 	margin: 0.625rem 0 -.1rem;
+				padding: 0rem .625rem 0;
+		    display: inline-block;
+		}
+		.giftlist li{
+				width: 45.5%;
+				background:#ffffff;
+		    border-radius: 5px;
+		    float: left;
+		    margin: .375rem .375rem .725rem;
+		}
+		.gift-bg{
+				overflow: hidden;
+    		border-radius: 5px;
+    		padding-bottom: 0.35rem;
+		}	
+		.gift-tu{
+				margin-bottom: 0.4rem;
+		}
+		.gift-tu img{
+			 	width:100%;
+		}
+		.gift-txt1{
+				padding-left: 0.5rem;
+    		font-size: 0.7rem;
+    		line-height: 1.25rem;
+		}
+		.gift-txt2{
+				padding-left: 0.5rem;
+    		font-size: 0.6rem;
+    		line-height: 1.25rem;
+    		color: #999999;
+		}
+		.gift-txt2-1{
+				display: inline-block;
+		}
+		.gift-txt2-2{
+				display: inline-block;
+   			float: right;
+   			padding-right: 0.45rem;
+		}
+/*积分商城*/
+
+/*积分明细*/
+		.page.igdetail{
+				background:#F5F5F5;
+		}
+		.page.igdetail .m-top-ct{
+				height: 3.5rem;
+				overflow: hidden;
+				background: #FFF;
+				display: flex;
+				align-items: center;
+		}
+		.page.igdetail .item-inner{
+				height:3.6rem;
+		}
+		.page.igdetail .m-top{
+			  margin-top: -3.3rem;
+		}
+		.page.igdetail .m-blank-ct {
+			width: 100%;
+			height: 10.75rem;
+			text-align: center;
+			position: relative;
+			top: 4.3rem;
+		}
+		.page.igdetail .m-blank-ct img {
+			width: 6.7rem;
+			height: 8.65rem;
+		}
+
+		.page.igdetail .m-blank-ct div {
+			color: #999;
+			font-size: 0.8rem;
+			padding-top: 0.8rem;
+		}
+
+		.page.igdetail .growth-list{
+				margin-top: 0.8rem;
+    		padding-bottom:1.5rem;
+		}
+		.page.igdetail .growth-list li{
+			background:#ffffff;
+		}
+		.page.igdetail .m-brief-ct{
+				display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: -webkit-flex;
+		    display: flex;
+		    width: 100%;
+		    -ms-flex-pack: justify;
+		    -webkit-justify-content: space-between;
+		    justify-content: space-between;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    -webkit-align-items: center;
+		    align-items: center;
+		    color: #323232;
+		    padding: 0 1rem;
+		    font-size: .7rem;
+		    padding-bottom: 0;
+		}
+		.page.growth .item-input{
+				text-align: right;
+    		color: #000000;
+		}
+		.page.igdetail .item-inner:after{
+				background-color: #e8e8e8;
+		}
+/*积分明细*/
+
+/*礼品详情*/
+		.page.iggift{
+				background:#ffffff;
+		}
+		.page.iggift .swiper-container{
+				padding-bottom: 0;
+				height: 10.75rem;
+		}
+		.page.iggift .swiper-container-horizontal > .swiper-pagination{
+				bottom: .5rem;
+		}
+		.page.iggift .swiper-pagination-bullet{
+				background: #e1e1e1;
+    		opacity: 1;
+		}
+		.page.iggift .swiper-pagination-bullet-active{
+			  opacity: 1;
+    		background: #eda900;
+		}
+		.page.iggift .swiper-slide .avatar-ct img{
+				font-size: 0;
+				height: 10.75rem;
+		}
+		.page.iggift .redeemnow {
+		    background: #534588;
+		    color: #FFF;
+		    text-align: center;
+		    display: block;
+		    font-size: .75rem;
+		    line-height: 2.6rem; 
+		    margin-top: -1px;
+		    font-weight: bold;
+		}
+		.gift-name{
+				margin-top: 0.75rem;
+		    padding-left: 0.75rem;
+		    font-size: .9rem;
+		    font-weight: 600;
+		    line-height: 25px;
+		    margin-bottom: 0.4rem;
+		}
+		.gift-detail{
+				line-height: 25px;
+		    padding-left: 0.75rem;
+		    font-size: 0.7rem;
+		    color: #999999;
+		    margin-bottom: 0.5rem;
+		}
+		.gift-value{
+				padding-left: 0.75rem;
+		    font-size: 0.75rem;
+		    color: #666666;
+		    margin-bottom: 0.5rem;
+		}
+		.gift-num{
+			  padding-left: 0.75rem;
+		    margin-bottom: 0.5rem;
+		    font-size: 0.7rem;
+		    line-height: 1.35rem;
+		}
+		.gift-num1{
+				display:inline-block;
+		}
+		.gift-num1 li {
+		    border: 1px solid #999;
+		    float: left;
+		    line-height: 1.25rem;
+		    text-align: center;
+		}		
+		.gift-num2{
+				display: inline-block;
+		    float: right;
+		    margin-right: 0.75rem;
+		    color:#999;
+		    font-size:0.6rem;
+		}
+		.gift-reduce{
+				border-right: 0 solid #999 !important;
+				border-radius:2px 0 0 2px;
+				width: 1.45rem;
+		}
+		.gift-sum{
+				border-right: 0 solid #999 !important;
+				width: 1.85rem;
+		}
+		.gift-add{
+				border-radius:0 2px 2px 0;
+				width: 1.45rem;
+		}
+		.gift-tip {
+		    line-height: 1rem;
+				font-size: 0.6rem;
+				border-top: 1px solid #F5F5F5;
+		    border-radius: 5px;
+		    padding: 0.5rem;
+		    position: relative;
+				padding: 0.58rem 0.5rem;
+				line-height: 0.86rem;
+		}
+		.gift-tip1{
+				position: absolute;
+		    display: inline-block;
+		    left: 5%;
+		    top:.65rem;
+		    width: 6%;
+		}
+		.gift-tip1-1{
+				width: 15px;
+		}
+		.gift-tip1-1 img{
+				width:100%;
+		}
+		.gift-tip2 {
+				display: inline-block;
+		    position: relative;
+		    top: 0;
+		    right: 0;
+				width: 100%;
+				color: #999;
+		}
+		.gift-cut{
+				width: 100%;
+		    height: 0.5rem;
+		    background: #F5F5F5;
+		    padding-bottom: 0.5rem;
+		}
+		.gift-commodity{
+				background: #ffffff;
+    		padding: 0.8rem 0.7rem 3.5rem 0.7rem;
+    		font-size: 0.6rem;
+    		color: #999999;
+		}
+		.gift-commodity li{
+				width: 100%;
+    		line-height: 1.25rem;
+		}
+		.gift-commodity-title{
+				font-size: 0.8rem;
+		    font-weight: 600;
+		    line-height: 1.25rem;
+		    color: #666666;
+		}
+		.gift-commodity-dashed{
+				width:100%;height:1px;border-bottom:1px dashed #ccc;margin-top:0.5rem;margin-bottom:0.5rem;
+		}
+		.gift-c1{
+				display: inline-flex;
+    		width: 16%;
+		}
+		.gift-c2{
+			  display: inline-flex;
+   	 		width: 82%;
+		}
+		.gift-ct{
+			 line-height:1.1rem;
+			 /* letter-spacing:1px; */
+		}
+		@media only screen and (min-width: 375px) and (max-width: 414px) {
+				.gift-c1{
+				display: inline-flex;
+		    		width: 14%;
+				}
+				.gift-c2{
+					  display: inline-flex;
+		   	 		width: 85%;
+				}
+		}
+		@media only screen and (min-width: 350px) and (max-width: 375px) {
+				.gift-c1{
+				display: inline-flex;
+		    		width: 14%;
+				}
+				.gift-c2{
+					  display: inline-flex;
+		   	 		width: 85%;
+				}
+		}
+/*礼品详情*/
+
+/*兑换成功*/
+    .giftM .dialog-box {
+			padding: 0 .75rem 0;
+		}
+
+		.giftM .dialog-message {
+			box-sizing: border-box;
+			text-align:center;
+			background: #FFF;
+			padding-bottom: 1.45rem;
+			border-radius: 0.25rem;
+		}
+
+		.giftM .dialog-message .iconfonts{
+			position: absolute;
+			right: 1rem;
+			top: 0.5rem;
+			font-size: 1.3rem;
+			color: #7D62A7 ;
+		}
+
+		.giftM .info {
+			font-size: 0.75rem;
+			height: 1.05rem;
+			line-height: 1.05rem;
+			padding: 1.45rem 0 1.65rem;
+		}
+
+		.giftM .theme-button {
+			width: 8.7rem;
+			color: #FFF;
+			border-radius: 1rem;
+			color: .75rem;
+			display: inline-block;
+			
+		}
+
+		.page.igsuccess{
+				background:#FFF;
+		} 
+		.igsu-tu {
+				width: 100%;
+				text-align: center;
+				height: 3.95rem;
+		}
+		.igsu-tu img {
+				width: 4.05rem;
+		}
+		.igsu-txt {
+		    font-weight: bold;
+		    font-size: 0.8rem;
+				padding: 1rem 0 0.25rem;
+		}
+		.igsu-ig {
+		    font-size: 0.7rem;
+		    color:#999999;
+		}
+		.igsu-ig .points {
+			padding-right: 0.2rem;
+		}
+		.igsu-btn {
+		    font-size: 0.75rem;
+		    color: #999999;
+		    width: 100%;
+		    line-height: 1.6rem;
+				text-align: center;
+				padding-top: 2.5rem;
+		}
+		.igsu-btn1 {
+			margin-right: 0.75rem;
+		}
+		.igsu-btn1, .igsu-btn2 {
+				display: inline-block;
+				width: 6.9rem;
+				border: 1px solid #534588;
+				border-radius: .25rem;
+				color: #534588;
+				height: 2.2rem;
+				line-height: 2.2rem;
+				box-sizing: border-box;
+		}
+/*兑换成功*/
+
+
+
+/*优惠券改版样式*/
+.page.coupon{
+		background: #f8f8f8;
+    height: auto;
+}
+.page.coupon .coupon-b-ct{
+		font-size: 0.7rem;
+    color: #333;
+    border: solid 1px #eeeeee;
+    margin-top: -10px;
+    padding: 1.25rem;
+    background: #ffffff;
+    border-radius: 3px;
+}
+.page.coupon .coupon-b-ct li{
+		padding-left: 0px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.4rem;
+    font-size: 0.7rem;
+}
+.coupon-txt{
+		display:inline-flex;
+		color:#999999;
+		width:30%;
+}
+.coupon-txt1{
+		display:inline-flex;
+		width:68%;
+}
+.coupon-txt1 span{
+		line-height:1.25rem;
+		width:100%;
+}
+@media only screen and (min-width: 375px) and (max-width: 414px) {
+		.coupon-txt{
+				width:24%;
+		}
+		.coupon-txt1{
+				display:inline-flex;
+				width:74%;
+		}
+}
+.page.coupon .coupon-h-inner1{
+		position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+		left: 0;
+    color: #FFF;
+    padding-left: 1.25rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.page.coupon .coupon-h-ct{
+		overflow: hidden;
+		height: 3.5rem;
+}
+
+
+/*余额*/
+  .page.balance .item-inner{
+  	 min-height:3.6rem;
+  }
+	.page.balance .item-inner:after{
+	    background-color: #e8e8e8;
+	}
+/*预约*/
+	.page.appointment{
+			background:#F5F5F5;
+	}
+	.page.order-list .item-inner{
+		min-height:3.6rem;
+	}
+	.page.order-list .item-inner:after{
+	    background-color: #F5F5F5;
+	}
+	.page.order-list .content-block li{
+			background:#ffffff;
+	}
+
+	.act-minProgram{
+	  width: 100%;
+	  position: relative;
+		top: 1.2rem;
+		height: 20.975rem;
+		text-align: center;
+}
+
+.act-minProgram .act01{
+	width: 15.05rem;
+	height: 100%;
+}
+
+.yearca .cancel {
+	position: absolute;
+	bottom: -3.5rem;
+	width: 100%;
+	height: 2rem;
+	line-height: 2rem;
+	text-align: center;
+}
+
+/*0525*/
+.catime{
+		position: fixed;
+	    width: 30px;
+	    height: 30px;
+	    border-radius: 50%;
+	    z-index: 99999;
+	    top: 15px;
+	    background-image:url(../images/active/actbg.jpg);
+	    color:#eda900;
+	    text-align: center;
+	    line-height: 30px;
+	    right: 15px;
+	}
+.act-0525{
+	  width: 100%;
+	  position: fixed;
+	  top: 14%;
+	  transform: translateY(-50%);
+	  -webkit-transform: translateY(-50%);
+}
+.qui{
+	  position: absolute;
+	  bottom: 2.2rem;
+	  left: 50%;
+	  transform: translate(-50%,0%);
+	  -webkit-transform: translate(-50%,0%);
+		width: 9rem;
+		height: 2.2rem;
+	  background: #eda900;
+	  line-height: 2.2rem;
+	  text-align: center;
+	  color: #fff;
+	  border-radius: 5px;
+	  font-size: 0.8rem;
+}
+
+
+	.ani_act1{animation:ani_act1 0.8s infinite  forwards;-webkit-animation:ani_act1 0.8s infinite  forwards}
+	@keyframes ani_act1{
+		0%{transform:rotate(6deg)}
+		25%{transform:rotate(0)}
+		50%{transform:rotate(-7deg)}
+		75%{transform:rotate(0deg)}
+		100%{transform:rotate(6deg)}
+	}
+	@-webkit-keyframes ani_act1{
+		0%{-webkit-transform:rotate(6deg)}
+		25%{-webkit-transform:rotate(0)}
+		50%{-webkit-transform:rotate(-7deg)}
+		75%{-webkit-transform:rotate(0deg)}
+		100%{-webkit-transform:rotate(6deg)}
+	}

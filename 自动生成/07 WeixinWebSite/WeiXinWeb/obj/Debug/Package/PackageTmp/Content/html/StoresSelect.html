@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="../sui/css/sm.css" rel="stylesheet" />
+    <link href="../sui/css/sm-extend.css" rel="stylesheet" />
+    <link href="../sui/css/common.css" rel="stylesheet" />
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../sui/js/sm-extend.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+    <script type="text/template" id="bodyList">
+        <% for(var i=0;i < data.length;i++)  { var one=data[i]; %>
+        <div class="card demo-card-header-pic" onclick="apix.goto('StoresDetile.html?id=<%=one.ID%>&name=<%=escape(one.StoreName)%>')">
+            <div valign="bottom" class="card-header color-white no-border no-padding">
+                <img class='card-cover' src="<%=GetBanner1(one.Banner)%>" style="height:10rem;">
+            </div>
+            <div class="card-content">
+                <div class="card-content-inner">
+                    <p class="color-gray"><%=one.Province%> <%=one.City%> <%=one.District%> <%=one.Address%></p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span>营业时间：<%=one.OpenTime%>点 到 <%=one.CloseTime%>点</span>
+                <a href="javascript:Select('<%=one.ID%>','<%=one.StoreName%>')" class="link">直接预约</a>
+            </div>
+        </div>
+        <%}%>
+    </script>
+</head>
+<body>
+    <div class="page page-current" id="page-bar">
+        <header class="bar bar-nav mytitle">
+            <h1 class="title">门店选择</h1>
+        </header>
+        <div class="content" style="bottom:2.5rem;">
+            
+        </div>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a href="javascript:apix.goto('Member.html')" class="tab-item external">取消</a>
+        </nav>
+    </div>
+    <script type="text/javascript">
+        apix.getuser().then(function (g) {
+            apix.GetStores().then(function (data) {
+                var html = $.template($("#bodyList").html())({ data: data });
+                $(".content").html(html);
+            });
+        });
+
+        function GetBanner1(str) {
+            str = str + "";
+            if (str.indexOf(';') == -1) return "";
+            return str.split(';')[0];
+        }
+
+        function Select(id, name) {
+            apix.goto("Fmember.html?stores=true&id=" + escape(id) + "&name=" + escape(name));
+        }
+    </script>
+    <style>
+        .liSelect {
+            background-color: #def2ff;
+        }
+    </style>
+</body>
+</html>

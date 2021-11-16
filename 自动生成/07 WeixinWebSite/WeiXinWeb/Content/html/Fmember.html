@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link href="../sui/css/sm.css" rel="stylesheet" />
+    <link href="../sui/css/sm-extend.css" rel="stylesheet" />
+    <link href="../sui/css/common.css" rel="stylesheet" />
+    <!--<link href="/Content/css/lan.min.css" rel="stylesheet" />
+    <link href="/Content/css/integral.css" rel="stylesheet" />-->
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+</head>
+<body>
+    <div class="page page-current" id="page-bar">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left back" href="Member.html">
+                <span class="icon icon-left"></span>
+                取消
+            </a>
+            <h1 class="title">预约</h1>
+        </header>
+        <div class="content native-scroll" style="top:0.5rem;">
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">门店：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请选择门店" id="mendian" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">项目：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请选择需要的项目" id="project" onclick="openSelect()">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">理疗师：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请选择需要的理疗师" id="Employee">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">人数：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请选择人数" value="" id="bodycount">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">到店时间：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请选择日期" value="" id="vday">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">联系人：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="联系人" value="" id="UserName">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">联系电话：</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="联系电话" value="" id="Phone">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">备注：</div>
+                                <div class="item-input">
+                                    <textarea id="Remark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a href="javascript:OK()" class="tab-item external">确认预约</a>
+        </nav>
+    </div>
+    <script type="text/javascript">
+        var selectMendian = null;
+        var StoresList = [];
+        var EmployeeList = [];
+        
+
+        function Initvday(store) {
+            var bg = store.OpenTime;
+            var ed = store.CloseTime;
+            var dayCount = 20;//最多可预约未来10天
+            var date = new Date();
+            var day = [];
+            var xiaoshi = [];
+            var fenzhong = ['00分', '15分', '30分', '45分'];
+            for (var i = 0; i < dayCount; i++) {
+                day.push(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+                date.setDate(date.getDate() + 1);
+            }
+            for (var i = 0; i <= 24; i++) {
+                if (bg >= 24) bg = 0;
+                xiaoshi.push(bg+"点" );
+                if (bg == ed) {
+                    break;
+                }
+                bg++;
+            }
+            $("#vday").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">请选择到店时间</h1>\
+  </header>',
+                cols: [
+                    {
+                        textAlign: 'center',
+                        values: day
+                    },
+                    {
+                        textAlign: 'center',
+                        values: xiaoshi
+                    },
+                    {
+                        textAlign: 'center',
+                        values: fenzhong
+                    }
+                ],
+                
+                onClose: function (d) {
+                    console.log("关闭时间："+$("#vday").val());
+                    //设置数据到本地
+                    var obj = GetInputData();
+                    $.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+                }
+            });
+        }
+
+
+
+        //加载页面数据
+        var pagedatakey = "thispagre1314124";
+        var projectID = null;
+        var mendianID = null;
+        $(function () {
+            var g = $.cookie.getCookie(pagedatakey);
+            if (g && g !== "") {
+                SetInputData(JSON.parse(g));
+            }
+            //加载选择后的结果
+            if ($.getQueryString("select") == "true") {
+                $("#project").val($.getQueryString("name"));
+                projectID = $.getQueryString("id");
+                mendianID = $.getQueryString("mendianID");
+            }
+            if ($.getQueryString("stores") == "true") {
+                $("#mendian").val($.getQueryString("name"));
+                mendianID = $.getQueryString("id");
+            }
+            
+            //var obj = GetInputData();
+            //$.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+
+            $("#bodycount").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">选择人数</h1>\
+  </header>',
+                cols: [
+                    {
+                        textAlign: 'center',
+                        values: ['1人', '2人', '3人', '4人', '5人']
+                    }
+                ],
+                onClose: function (d) {
+                    //设置数据到本地
+                    var obj = GetInputData();
+                    $.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+                }
+            });
+            apix.getuser().then(function (g) {
+                if ($("#Phone").val() == "") {
+                    $("#Phone").val(g.Phone);
+                }
+                if ($("#UserName").val() == "") {
+                    $("#UserName").val(g.RealName);
+                }
+                apix.GetStores().then(function (data) {
+                    //设置门店
+                    var selectMendian = null;
+                    if (mendianID != null) selectMendian=apix.Find(data, function (e) { return e.ID == mendianID; });
+                    else selectMendian=apix.Find(data, function (e) { return e.StoreName == $("#mendian").val(); });
+                    $("#mendian").val(selectMendian.StoreName);
+                    if (GetInputData().mendian != "") {
+                        LoadEmployees();
+                        Initvday(selectMendian);
+                    }
+                    StoresList = data;
+                    var list = [];
+                    for (var i = 0; i < data.length; i++) {
+                        list.push(data[i].StoreName);
+                    }
+                    $("#mendian").picker({
+                        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">选择门店</h1>\
+  </header>',
+                        cols: [
+                            {
+                                textAlign: 'center',
+                                values: list
+                            }
+                        ],
+                        onClose: function (d) {
+                            //设置数据到本地
+                            var obj = GetInputData();
+                            $.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+                            LoadEmployees();
+                            Initvday(selectMendian);
+                        }
+                    });
+                });
+            });
+        });
+
+        function GetInputData() {
+            var obj = {};
+            obj.mendian = $("#mendian").val();
+            obj.bodycount = $("#bodycount").val();
+            obj.vday = $("#vday").val();
+            obj.Employee = $("#Employee").val();
+            obj.UserName = $("#UserName").val();
+            obj.Phone = $("#Phone").val();
+            obj.Remark = $("#Remark").val();
+            return obj;
+        }
+
+        function SetInputData(obj) {
+            for (var o in obj) {
+                $("#" + o).val(obj[o]);
+            }
+        }
+        var mendian
+        function openSelect() {
+            if ($("#mendian").val() == "") {
+                alert("请先选择门店");
+                return;
+            }
+            //设置数据到本地
+            var obj = GetInputData();
+            $.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+            //跳转到项目选择页面
+            apix.goto("ProjectsSelect.html?StoreName=" + escape($("#mendian").val()));
+        }
+
+        function LoadEmployees() {
+            var changeEmployees = selectMendian == null || selectMendian != $("#mendian").val();
+            selectMendian = $("#mendian").val();
+            if (changeEmployees) {
+                //重新加载美容师
+                apix.GetEmployees(selectMendian).then(function (g) {
+                    EmployeeList = g;
+                    var glist = [];
+                    for (var i = 0; i < g.length; i++) {
+                        glist.push(g[i].EmpplyeeName);
+                    }
+                    $("#Employee").picker({
+                        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">请选择技师</h1>\
+  </header>',
+                        cols: [
+                            {
+                                textAlign: 'center',
+                                values: glist
+                            }
+                        ],
+                        onClose: function (d) {
+                            //设置数据到本地
+                            var obj = GetInputData();
+                            $.cookie.setCookie(pagedatakey, JSON.stringify(obj));
+                        }
+                    });
+                    $("#Employee").picker()
+                });
+            }
+            
+        }
+
+
+        function OK() {
+            var tmp = GetInputData();
+            var obj = {};
+            obj["StoreID"] = apix.Find(StoresList, function (e) { return e.StoreName == tmp.mendian; }).ID;
+            obj["EmployeeID"] = apix.Find(EmployeeList, function (e) { return e.EmpplyeeName == tmp.Employee; }).ID;
+            obj["ProjectID"] = projectID;
+            obj["OrderTime"] = tmp.vday.replace("点", ":").replace("分","");
+            obj["PeopleCount"] = tmp.bodycount.replace("人","");
+            obj["UserName"] = tmp.UserName;
+            obj["Phone"] = tmp.Phone;
+            obj["Remark"] = tmp.Remark;
+            apix.SaveMemberOrders(obj).then(function (d) {
+                alert("预约成功");
+                apix.goto("Orderlist.html");
+                $.cookie.setCookie(pagedatakey, "");
+            });
+        }
+    </script>
+</body>
+</html>

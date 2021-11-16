@@ -1,0 +1,16 @@
+﻿.bar-tab {
+    background-color: #534588
+}
+    .bar-tab .tab-item{
+        color:#ffffff;
+    }
+
+.list-block.media-list .item-title{
+    font-size:0.7rem;
+}
+.list-block .item-text{
+    height:25px;
+}
+.list-block ul:after{
+    z-index:-1;
+}

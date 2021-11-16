@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="../sui/css/sm.css" rel="stylesheet" />
+    <link href="../sui/css/sm-extend.css" rel="stylesheet" />
+    <link href="../sui/css/common.css" rel="stylesheet" />
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../sui/js/sm-extend.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+    <script type="text/template" id="bodyList">
+        <div class="list-block media-list">
+            <ul>
+                <% for(var i=0;i < data.length;i++) {var one=data[i]; %>
+                <a href="javascript:Select('<%=one.ID%>')" class="item-link item-content">
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title" style="font-size:0.8rem"><%=one.OrderTime%></div>
+                            <div class="item-after" style="color:#0894ec;font-size:0.7rem"><%=one.Status%></div>
+                        </div>
+                        <!--<div class="item-subtitle">子标题</div>-->
+                        <div style="font-size:0.7rem;color:#989595"><%=one.ProjectName%> - <%=one.NeedTime%>分钟 | <%=one.PeopleCount%>人 | ￥<%=one.Price%> | <%=one.EmpplyeeName%>技师 | <%=one.StoreName%></div>
+                    </div>
+                </a>
+                <%}%>
+            </ul>
+        </div>
+    </script>
+</head>
+<body>
+    <div class="page page-current" id="page-bar">
+        <header class="bar bar-nav mytitle">
+            <a class="button button-link button-nav pull-left back" href="Member.html">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">订单列表</h1>
+        </header>
+        <div class="content" style="top:0.5rem;bottom:2.5rem;">
+            <div class="list-block media-list">
+                
+            </div>
+        </div>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a href="javascript:OK()" class="tab-item external">立即预约</a>
+        </nav>
+    </div>
+    <script type="text/javascript">
+        apix.getuser().then(function (g) {
+            var sname = $.getQueryString("type");
+            apix.GetOrder(sname).then(function (data) {
+                var html = $.template($("#bodyList").html())({ data: data });
+                $(".content").html(html);
+            });
+        });
+        function Select(id) {
+            apix.goto('OrderDetile.html?id=' + id);
+        }
+
+        function OK() {
+            apix.goto("StoresSelect.html?");
+        }
+        
+    </script>
+    <style>
+        .liSelect {
+            background-color: #def2ff;
+        }
+    </style>
+</body>
+</html>

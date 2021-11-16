@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="../sui/css/sm.css" rel="stylesheet" />
+    <link href="../sui/css/sm-extend.css" rel="stylesheet" />
+    <link href="../sui/css/common.css" rel="stylesheet" />
+    <script type='text/javascript' src='/Content/js/zepto/zepto.min.js' charset='utf-8'></script>
+    <script src="/Content/sui/js/sm.js"></script>
+    <script src="../sui/js/sm-extend.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+    <script type="text/template" id="bodyList">
+        <div class="list-block media-list">
+            <ul>
+                <% for(var i=0;i < data.length;i++) {var tmp=data[i]; %>
+                <li  onclick="OpenDetile('<%=tmp.ID%>','<%=tmp.ProjectName%>')">
+                    <a href="javascript:void(0)" class="item-link item-content">
+                        <div class="item-media"><img src="<%=tmp.Picture%>" style='width: 4rem;'></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title"><%=tmp.ProjectName%></div>
+                                <div class="item-after">￥<%=tmp.Price%></div>
+                            </div>
+                            <div class="item-subtitle" style="color:red;">折扣价￥<%=tmp.DiscountPrice%></div>
+                            <div class="item-text button" style="width:100px" tag="<%=tmp.ID%>" onclick="Select('<%=tmp.ID%>', '<%=tmp.ProjectName%>','<%=tmp.StoreID%>'); return false;"><%=tmp.NeedTime%>分钟</div>
+                        </div>  
+                    </a>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </script>
+</head>
+<body>
+    <div class="page page-current" id="page-bar">
+        <header class="bar bar-nav mytitle">
+            <h1 class="title">项目选择</h1>
+        </header>
+        <div class="content" style="top:0.5rem;bottom:2.5rem;">
+            <div class="list-block media-list">
+                
+            </div>
+        </div>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <span  class="tab-item external" id="SelectName" style="color:#f9dada;font-size:0.7rem;"></span>
+            <a href="javascript:OK()" class="tab-item external">确定</a>
+        </nav>
+    </div>
+    <script type="text/javascript">
+        apix.getuser().then(function (g) {
+            var sname = $.getQueryString("StoreName");
+            apix.GetProjects(sname).then(function (data) {
+                var html = $.template($("#bodyList").html())({ data: data });
+                $(".content").html(html);
+            });
+        });
+        var st_id, st_sname,st_mendianID;
+        function Select(id, name, mendianID) {
+            st_id = id;
+            st_sname = name;
+            st_mendianID = mendianID;
+            $(".liSelect").removeClass("liSelect");
+            $("div[tag='" + id + "']").addClass("liSelect");
+            $("#SelectName").html(name);
+            event.cancelBubble = true;
+        }
+
+        function OK() {
+            if (!st_sname) {
+                alert("请选择项目");
+                return;
+            }
+            apix.goto("Fmember.html?select=true&id=" + escape(st_id) + "&name=" + escape(st_sname) + "&mendianID=" + escape(st_mendianID));
+        }
+        function OpenDetile(id, name) {
+            apix.goto("ProjectsDetile.html?select=true&id=" + escape(id) + "&name=" + escape(name));
+        }
+
+        if (!$.getQueryString("StoreName")) {
+            $(".title").text("本月促销");
+        }
+        
+    </script>
+    <style>
+        .list-block .liSelect {
+            background-color: #534588;
+            color: #ffffff;
+        }
+    </style>
+</body>
+</html>

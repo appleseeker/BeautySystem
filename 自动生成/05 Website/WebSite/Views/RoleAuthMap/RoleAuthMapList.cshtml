@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "权限列表";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<div id="p" class="hide"
+     style="width:100%;height:80px;padding:10px;background:#fafafa"
+     data-options="collapsible:true">
+
+    <form id="RoleAuthMapList_ff" method="post" style="float:left">
+        <table cellpadding="5">
+            <tr>
+                        <input type="hidden" id="RoleID" value="@Request["RoleID"]" />
+            </tr>
+        </table>
+
+    </form>
+    <div style="float:right;">
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:RoleAuthMapList_search(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">【查询】</a>
+        </div>
+    </div>
+</div>
+
+
+<table id="dlRoleAuthMapList" class="easyui-datagrid" data-options="url:'',sortName:'ID',sortOrder:'desc',rownumbers:true,toolbar:'#toolbar',pagination:false,fitColumns:false,singleSelect:true ">
+    <thead>
+        <tr>
+                <th data-options="field:'ID',sortable:true,hidden:true">ID</th>
+                <th data-options="field:'RoleID',sortable:true,hidden:true">角色ID</th>
+                <th data-options="field:'Auth',sortable:true,hidden:false">权限</th>
+            <th data-options="field:'xx_xxx',formatter:RoleAuthMapList_rowButton">操作</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div id="toolbar">
+        <a href="javascript:openPage('编辑权限','/RoleAuthMap/AddAuth?RoleID=@Request["RoleID"]','dlRoleAuthMapList')" class="easyui-linkbutton" data-options="iconCls:'',plain:true">编辑权限</a>
+
+</div>
+
+<div style="display:none">
+    <!--操作界面-->
+        <div id="RoleAuthMapList_Delete_actionView">
+            <form id="RoleAuthMapList_Delete_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                            <input type="hidden" name="ID" value="" />
+                                            <tr><td>确认删除？</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="RoleAuthMapList_Delete_Save()" class="easyui-linkbutton">确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#RoleAuthMapList_Delete_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+        function RoleAuthMapList_getSearchData() {
+            return {
+                    RoleID: $("#RoleID").val(),
+                other:"xx"
+            };
+        }
+
+        function RoleAuthMapList_search() {
+            $('#dlRoleAuthMapList').datagrid('load', RoleAuthMapList_getSearchData());
+        }
+
+        function RoleAuthMapList_rowButton(value, row, index) {
+            var html = "";
+
+            //加载操作函数
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("角色权限/权限列表/删除"))
+                {
+                <text>if(true) html += "<a href=\"javascript:void(0)\" onclick=\"RoleAuthMapList_rowAction('#RoleAuthMapList_Delete_actionView','删除',"+index+",150)\" class=\"easyui-linkbutton l-btn l-btn-small l-btn-text\" style=\"padding: 0 5px;\">删除</a>";</text>
+                }
+            return html;
+        }
+
+        function RoleAuthMapList_rowLinked(name, url) {
+            return "<a href=\"javascript:openPage('" + name + "','" + url + "','dlRoleAuthMapList')\"  class='easyui-linkbutton l-btn l-btn-small l-btn-text' style='padding: 0 5px;'>" + name + "</a>";
+        }
+        function RoleAuthMapList_rowAction(id, name, index, height, funcName, isSave) {
+            var row = jQuery('#dlRoleAuthMapList').datagrid("getData").rows[index];
+            jQuery(id + "_form").form("load", row);
+            if (isSave) {
+                eval(funcName + "()");
+            } else {
+                jQuery(id).dialog({ title: name, width: 400, height: height, modal: true, cache: false}).dialog('center');
+            }
+        }
+        jQuery(function () {
+            setTimeout(function () {
+                $('#dlRoleAuthMapList').datagrid({
+                    url: '/RoleAuthMap/RoleAuthMapList_', queryParams: RoleAuthMapList_getSearchData()
+                });
+            }, 100);
+        });
+
+        
+        function RoleAuthMapList_Delete_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#RoleAuthMapList_Delete_actionView_form').form('submit', {
+                url: "/RoleAuthMap/RoleAuthMapList_Delete",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#RoleAuthMapList_Delete_actionView').dialog('close');
+                        RoleAuthMapList_search();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+
+</script>
+}

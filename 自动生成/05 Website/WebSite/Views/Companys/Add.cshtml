@@ -1,0 +1,79 @@
+﻿@model Common.Companys
+
+@{
+    ViewBag.Title = "添加公司";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<form id="Add_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+                <input type="hidden" name="ID" value="@Model.ID"/>
+        <tr>
+            <td>公司名:</td>
+            <td><input class="easyui-textbox" type="text" name="CompanyName" data-options=" required:true,validType:['lengthExt[2,300,\'公司名长度必须在2-300之间\']','remoteExt[\'/Companys/Companys_CompanyName_Ver_AjaxVerify?\'+jQuery(\'#Add_ffss\').serialize(),\'CompanyName\',\'公司名称已经存在\']']" style="width:200px;" value="@Model.CompanyName"></input></td>
+        </tr>
+        <tr>
+            <td>省份:</td>
+            <td><input class="easyui-textbox" type="text" name="Province" data-options="validType:['lengthExt[0,50,\'省份名长度必须在0-50之间\']']" style="width:200px;" value="@Model.Province"></input></td>
+        </tr>
+        <tr>
+            <td>城市:</td>
+            <td><input class="easyui-textbox" type="text" name="City" data-options="validType:['lengthExt[0,50,\'城市名长度必须在0-50之间\']']" style="width:200px;" value="@Model.City"></input></td>
+        </tr>
+        <tr>
+            <td>地区:</td>
+            <td><input class="easyui-textbox" type="text" name="District" data-options="validType:['lengthExt[0,50,\'地区名长度必须在0-50之间\']']" style="width:200px;" value="@Model.District"></input></td>
+        </tr>
+        <tr>
+            <td>地址:</td>
+            <td><input class="easyui-textbox" type="text" name="Address" data-options="validType:['lengthExt[0,200,\'地址名长度必须在2-200之间\']']" style="width:200px;" value="@Model.Address"></input></td>
+        </tr>
+        <tr>
+            <td>ContractName:</td>
+            <td><input class="easyui-textbox" type="text" name="ContractName" data-options="validType:['lengthExt[0,300,\'地址名长度必须在2-300之间\']']" style="width:200px;" value="@Model.ContractName"></input></td>
+        </tr>
+        <tr>
+            <td>ContractPhone:</td>
+            <td><input class="easyui-textbox" type="text" name="ContractPhone" data-options="validType:['lengthExt[0,20,\'地址名长度必须在2-20之间\']']" style="width:200px;" value="@Model.ContractPhone"></input></td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" onclick="Add_Save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a href="javascript:void(0)" onclick="Add_Close()" class="easyui-linkbutton">关闭</a>
+    </div>
+<div style="display:none">
+    <!--操作界面-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+    
+        function Add_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+        function Add_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#Add_ffss').form('submit', {
+                url: "/Companys/Add_",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');	// hide progress bar while the form is invalid
+                    }
+                    return isValid;	// return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        if (@Html.Raw("\"" + Request["listid"] + "\"") != "") Gridreload("@Request["listid"]", getQueryStringByName("uit"));
+                        Add_Close();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,65 @@
+﻿@model Common.RoleAuthMap
+
+@{
+    ViewBag.Title = "编辑权限";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<form id="AddAuth_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+
+        <tr>
+            <td>
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="RoleID" value="@Model.RoleID" />
+                    <ul id="tt" class="easyui-tree" data-options="url:'/RoleAuthMap/AuthList?RoleID=@Model.RoleID',onlyLeafCheck:true,checkbox:true"></ul>
+                    
+            </td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" onclick="AddAuth_Save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a href="javascript:void(0)" onclick="AddAuth_Close()" class="easyui-linkbutton">关闭</a>
+    </div>
+<div style="display:none">
+    <!--操作界面-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+    
+        function AddAuth_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+        function AddAuth_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#AddAuth_ffss').form('submit', {
+                url: "/RoleAuthMap/AddAuth_",
+                onSubmit: function (param) {
+                    var tmplist = jQuery("#tt").tree("getChecked");
+                    var attrlist = [];
+                    for (var i = 0; i < tmplist.length; i++) {
+                        attrlist.push(tmplist[i].attributes);
+                    }
+                    param.AuthList = JSON.stringify(attrlist);
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');	// hide progress bar while the form is invalid
+                    }
+                    return isValid;	// return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        if (@Html.Raw("\"" + Request["listid"] + "\"") != "") Gridreload("@Request["listid"]", getQueryStringByName("uit"));
+                        AddAuth_Close();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+
+    </script>
+}

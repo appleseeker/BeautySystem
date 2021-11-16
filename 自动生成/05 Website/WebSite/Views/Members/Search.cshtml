@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "会员管理";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<div id="p" class="easyui-panel"
+     style="width:100%;height:80px;padding:10px;background:#fafafa"
+     data-options="collapsible:true">
+
+    <form id="Search_ff" method="post" style="float:left">
+        <table cellpadding="5">
+            <tr>
+                        <td>手机号:</td>
+                        <td><input class="easyui-textbox" type="text" id="Phone" data-options="" value="" /></td>
+                        <td>昵称:</td>
+                        <td><input class="easyui-textbox" type="text" id="NickName" data-options="" value="" /></td>
+            </tr>
+        </table>
+
+    </form>
+    <div style="float:right;">
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:Search_search(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">【查询】</a>
+        </div>
+    </div>
+</div>
+
+
+<table id="dlSearch" class="easyui-datagrid" data-options="url:'',sortName:'CreateTime',sortOrder:'desc',rownumbers:true,toolbar:'#toolbar',pagination:true,fitColumns:false,singleSelect:true ,pageSize:20,pageList:[20,40,60]">
+    <thead>
+        <tr>
+                <th data-options="field:'ID',sortable:true,hidden:true">ID</th>
+                <th data-options="field:'Phone',sortable:true,hidden:false">手机号</th>
+                <th data-options="field:'NickName',sortable:true,hidden:false">昵称</th>
+                <th data-options="field:'Sex',sortable:true,hidden:false">性别</th>
+                <th data-options="field:'Picture',sortable:false,hidden:false">Picture</th>
+            <th data-options="field:'xx_xxx',formatter:Search_rowButton">操作</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div id="toolbar">
+        <a href="javascript:openPage('新建会员','/Members/Add?','dlSearch')" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新建会员</a>
+
+</div>
+
+<div style="display:none">
+    <!--操作界面-->
+        <div id="Search_Delete_actionView">
+            <form id="Search_Delete_actionView_form" method="post" style="padding:10px 60px 20px 60px" action="">
+                <table>
+                            <input type="hidden" name="ID" value="" />
+                                            <tr><td>确认删除这个会员?</td></tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" onclick="Search_Delete_Save()" class="easyui-linkbutton">确定</a>
+                <a href="javascript:void(0)" onclick="jQuery('#Search_Delete_actionView').dialog('close')" class="easyui-linkbutton">关闭</a>
+            </div>
+        </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+        function Search_getSearchData() {
+            return {
+                    Phone: $("#Phone").textbox('getValue'),
+                    NickName: $("#NickName").textbox('getValue'),
+                other:"xx"
+            };
+        }
+
+        function Search_search() {
+            $('#dlSearch').datagrid('load', Search_getSearchData());
+        }
+
+        function Search_rowButton(value, row, index) {
+            var html = "";
+                var url = "/Members/Edit?ID="+row.ID+"";
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("会员/编辑会员信息/访问"))
+                {
+                <text>html += Search_rowLinked("编辑", url);</text>
+                }
+
+            //加载操作函数
+                @if (WebSite.Code.MVCExt.userAuthorizedHelper.UserHaveAuthorized("会员/会员管理/删除"))
+                {
+                <text>if(true) html += "<a href=\"javascript:void(0)\" onclick=\"Search_rowAction('#Search_Delete_actionView','删除',"+index+",150)\" class=\"easyui-linkbutton l-btn l-btn-small l-btn-text\" style=\"padding: 0 5px;\">删除</a>";</text>
+                }
+            return html;
+        }
+
+        function Search_rowLinked(name, url) {
+            return "<a href=\"javascript:openPage('" + name + "','" + url + "','dlSearch')\"  class='easyui-linkbutton l-btn l-btn-small l-btn-text' style='padding: 0 5px;'>" + name + "</a>";
+        }
+        function Search_rowAction(id, name, index, height, funcName, isSave) {
+            var row = jQuery('#dlSearch').datagrid("getData").rows[index];
+            jQuery(id + "_form").form("load", row);
+            if (isSave) {
+                eval(funcName + "()");
+            } else {
+                jQuery(id).dialog({ title: name, width: 400, height: height, modal: true, cache: false}).dialog('center');
+            }
+        }
+        jQuery(function () {
+            setTimeout(function () {
+                $('#dlSearch').datagrid({
+                    url: '/Members/Search_', queryParams: Search_getSearchData()
+                });
+            }, 100);
+        });
+
+        
+        function Search_Delete_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#Search_Delete_actionView_form').form('submit', {
+                url: "/Members/Search_Delete",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');   // hide progress bar while the form is invalid
+                    }
+                    return isValid; // return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        jQuery('#Search_Delete_actionView').dialog('close');
+                        Search_search();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+        
+
+</script>
+}

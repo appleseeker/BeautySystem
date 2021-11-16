@@ -1,0 +1,62 @@
+﻿@model List<KeyValuePair<string, List<StoreWebSite.Models.MenuItem>>>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<div id="cc" class="easyui-layout" style="width:100%;height:1000px;" data-options="fit:true">
+    <div data-options="region:'north',split:'true'" style="height:50px">
+        <div style="float:left;font-size: 22px;padding-top: 6px;padding-left: 6px;color: #438eb9;">
+            欢迎进入BeautyDate(美约)系统
+        </div>
+        <div style="float:right;padding-top: 6px;padding-right: 6px;">
+            <a href="/login/logout" class="easyui-linkbutton bg-danger">退出</a>
+        </div>
+
+
+    </div>
+    <div region="west" split="true" style="width:200px;">
+        <div id="accordion" class="easyui-accordion" style="width:100%">
+            @foreach (var item in Model)
+            {
+                <div title="@item.Key">
+                    <ul class="tree">
+                        @foreach (var one in item.Value)
+                        {
+                            <div class="tree-node" onmouseover="jQuery(this).addClass('tree-node-hover')" onmouseout="jQuery(this).removeClass('tree-node-hover')" onclick="openTab(this,'@one.Url')"><span class="tree-indent"></span><span class="tree-title">@one.Text</span></div>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    <div id="content" region="center">
+        <div id="tabs" class="easyui-tabs" data-options="fit:true">
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function openTab(tag, url) {
+            jQuery(".tree-node").removeClass("tree-node-selected");
+            jQuery(tag).addClass("tree-node-selected");
+            var pannalName = jQuery.trim(jQuery(tag).text());
+            var pannal = jQuery("#tabs").tabs("getTab", pannalName);
+            if (pannal) {
+                jQuery("#tabs").tabs("select", pannalName);
+            } else {
+                jQuery("#tabs").tabs("add", { title: pannalName, closable: true, content: "<iframe src=\"" + url + "\" style='width: 100%;height: 100%;border: 0;' frameborder='no' ></iframe>" });
+            }
+
+        }
+
+        function ClosedialogTab() {
+            var tab = $('#tabs').tabs('getSelected');
+            var index = $('#tabs').tabs('getTabIndex', tab);
+            $('#tabs').tabs("close", index);
+        }
+    </script>
+}

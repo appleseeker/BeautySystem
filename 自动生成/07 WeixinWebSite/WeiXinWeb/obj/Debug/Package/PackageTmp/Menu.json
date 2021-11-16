@@ -1,0 +1,44 @@
+﻿{
+  "button": [
+    {
+      "name": "关于我们",
+      "sub_button": [
+        {
+          "name": "品牌介绍",
+          "type": "view",
+          "url": "http://#SiteDomain#/Content/html/CompanysDetile.html"
+        },
+        {
+          "name": "门店介绍",
+          "type": "view",
+          "url": "http://#SiteDomain#/Content/html/StoresSelect.html"
+        },
+        {
+          "name": "产品介绍",
+          "type": "view",
+          "url": "http://#SiteDomain#/Content/html/ProductsList.html"
+        }
+      ]
+    },
+    {
+      "name": "在线预约",
+      "sub_button": [
+        {
+          "name": "预约",
+          "type": "view",
+          "url": "http://#SiteDomain#/Content/html/StoresSelect.html"
+        },
+        {
+          "name": "本月促销",
+          "type": "view",
+          "url": "http://#SiteDomain#/Content/html/ProjectsSelect.html"
+        }
+      ]
+    },
+    {
+      "name": "个人中心",
+      "type": "view",
+      "url": "http://#SiteDomain#/Content/html/Member.html"
+    }
+  ]
+}

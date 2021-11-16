@@ -1,0 +1,58 @@
+﻿@model List<KeyValuePair<string, List<KeyValuePair<string, string>>>>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+<style>
+    body {
+        background-color: #e4e6e9
+    }
+</style>
+<div class="easyui-dialog" data-options="title:'登陆',closable:false,top:150" style="text-align:center;">
+    <h1>欢迎使用TemplateSite系统</h1>
+    
+        <form id="ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+            <table cellpadding="5" align="center">
+                <tr>
+                    <td>用户名:</td>
+                    <td><input id="name_" class="easyui-textbox" type="text" name="Name" data-options=" required:true" style="width:200px;" value=""></input></td>
+                </tr>
+                <tr>
+                    <td>密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
+                    <td><input id="pwd_" class="easyui-passwordbox" type="text" name="Pwd" data-options=" required:true" style="width:200px;" value=""></input></td>
+                </tr>
+            </table>
+        </form>
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:void(0)" onclick="login()" class="easyui-linkbutton" style="width:50px" >登陆</a>
+        </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        //jQuery("#cc").dialog("center");
+        function login() {
+            jQuery.jsonPost("login", "login/xxxx",
+                {
+                    name: jQuery("#name_").textbox("getValue"),
+                    pwd: jQuery("#pwd_").textbox("getValue"),
+                }, function (d) {
+                    window.location.href = "/home/index";
+                }, {}
+            );
+        }
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

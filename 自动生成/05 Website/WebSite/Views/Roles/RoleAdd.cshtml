@@ -1,0 +1,55 @@
+﻿@model Common.Roles
+
+@{
+    ViewBag.Title = "新建角色";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<form id="RoleAdd_ffss" method="post" style="padding:10px 60px 20px 60px" action="">
+    <table cellpadding="5" align="center">
+                <input type="hidden" name="ID" value="@Model.ID"/>
+        <tr>
+            <td>角色名称:</td>
+            <td><input class="easyui-textbox" type="text" name="Name" data-options=" required:true,validType:['length[2,20]','remote[\'/Roles/RoleOnly_AjaxVerify?\'+jQuery(\'#RoleAdd_ffss\').serialize(),\'Name\']']" style="width:200px;" value="@Model.Name"></input></td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" onclick="RoleAdd_Save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a href="javascript:void(0)" onclick="RoleAdd_Close()" class="easyui-linkbutton">关闭</a>
+    </div>
+<div style="display:none">
+    <!--操作界面-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+    
+        function RoleAdd_Close() {
+            Closedialog(getQueryStringByName("uit"));
+        }
+        function RoleAdd_Save() {
+            $.messager.progress({ interval: 200, text: "处理中" });
+            $('#RoleAdd_ffss').form('submit', {
+                url: "/Roles/RoleAdd_",
+                onSubmit: function () {
+                    var isValid = $(this).form('validate');
+                    if (!isValid) {
+                        $.messager.progress('close');	// hide progress bar while the form is invalid
+                    }
+                    return isValid;	// return false will stop the form submission
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    if (data == 1) {
+                        alert("操作成功");
+                        if (@Html.Raw("\"" + Request["listid"] + "\"") != "") Gridreload("@Request["listid"]", getQueryStringByName("uit"));
+                        RoleAdd_Close();
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+
+    </script>
+}

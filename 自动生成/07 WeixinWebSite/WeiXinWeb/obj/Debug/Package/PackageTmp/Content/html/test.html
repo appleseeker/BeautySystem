@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My LANN</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no" />
+    <link href="/Content/sui/css/sm.min.css" rel="stylesheet" />
+    <link href="../css/lan.min.css" rel="stylesheet" />
+    <link href="/Content/css/integral.css" rel="stylesheet" />
+    <script src="/Content/js/zepto/zepto.min.js"></script>
+    <script src="../sui/js/sm.js"></script>
+    <script src="../js/ajaxApi.js"></script>
+</head>
+<body>
+
+
+
+    <script>
+        apix.test = function () {
+            var deferred = new $.promise.Promise();
+            deferred.done(1);
+            return deferred;
+        };
+        apix.test2 = function () {
+            var deferred = new $.promise.Promise();
+            //deferred.done(1);
+            return deferred;
+        }
+
+        apix.test().then(function () {
+            alert("test");
+        });
+        apix.test2().then(function () {
+            alert("test2");
+        });
+
+        //apix.getuser().then(function (data) {
+        //    console.log(data);
+        //});
+
+
+    </script>
+    <style>
+        .page-group.page-current, .page.page-current {
+            overflow: auto;
+        }
+    </style>
+</body>
+</html>
